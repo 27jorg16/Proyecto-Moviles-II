@@ -67,7 +67,6 @@ struct ItemDetailView: View {
             }
         }
         .sheet(isPresented: $isEditing) {
-            // Pasa el artículo seleccionado para editar
             AddItemView(viewModel: viewModel, itemToEdit: item)
         }
         .alert(isPresented: $showDeleteConfirmation) {

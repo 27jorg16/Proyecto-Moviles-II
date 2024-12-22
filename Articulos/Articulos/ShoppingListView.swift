@@ -12,6 +12,7 @@ struct ShoppingListView: View {
     @StateObject private var viewModel = ShoppingListViewModel(context: PersistenceController.shared.container.viewContext)
     
     @State private var isAddingItem = false
+    @State private var isEditingItem: Articulo? = nil
     @State private var selectedItems: Set<Articulo> = []
     
     var body: some View {
@@ -21,7 +22,7 @@ struct ShoppingListView: View {
                     HStack {
                         VStack(alignment: .leading) {
                             Button(action: {
-                                isAddingItem = true
+                                isEditingItem = item
                             }) {
                                 HStack {
                                     Text(item.name ?? "Sin nombre")
@@ -37,7 +38,6 @@ struct ShoppingListView: View {
                             .buttonStyle(PlainButtonStyle())
                             .background(Color.clear)
                             .cornerRadius(8)
-
                         }
 
                         VStack {
@@ -80,7 +80,6 @@ struct ShoppingListView: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Menu {
-                        // Modificamos la acción para marcar todos los artículos como comprados
                         Button("Marcar todo") {
                             for item in viewModel.items {
                                 viewModel.toggleItemPurchaseStatus(for: item)
@@ -99,7 +98,10 @@ struct ShoppingListView: View {
                 }
             }
             .sheet(isPresented: $isAddingItem) {
-                ItemDetailView(viewModel: viewModel, item: viewModel.items.first!)
+                AddItemView(viewModel: viewModel)
+            }
+            .sheet(item: $isEditingItem) { item in
+                ItemDetailView(viewModel: viewModel, item: item)
             }
             .alert(isPresented: $viewModel.showingDeleteAlert) {
                 Alert(

@@ -35,7 +35,6 @@ struct SummaryView: View {
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Button(action: {
-                        // Acción para actualizar, si fuera necesario
                     }) {
                         Label("Actualizar", systemImage: "arrow.clockwise")
                     }

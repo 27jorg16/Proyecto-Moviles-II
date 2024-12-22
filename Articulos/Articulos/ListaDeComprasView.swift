@@ -44,12 +44,12 @@ struct ListaDeComprasView: View {
                     }
                 }
                 .padding(.top, 20)
-                .padding(.bottom, 60) // Espacio adicional para comodidad al pulgar
+                .padding(.bottom, 60)
                 .fullScreenCover(isPresented: $isNavigating) {
-                    ShoppingListView() // Navegar a ShoppingListView
+                    ShoppingListView()
                 }
             }
         }
-        .navigationBarHidden(true) // Ocultar la barra de navegación
+        .navigationBarHidden(true)
     }
 }
